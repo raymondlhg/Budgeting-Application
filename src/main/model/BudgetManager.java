@@ -19,8 +19,8 @@ public class BudgetManager {
         budgetList.put(name, itemList);
     }
 
-    // MODIFIES:
-    // EFFECTS:
+    // MODIFIES: account1, this
+    // EFFECTS: return true if itemAmount < budget and add category if not existing, return false otherwise
     public boolean addItem(String itemName, double itemAmount, String category) {
         if (itemAmount <= account1.getBudget()) {
             account1.setBudget(account1.getBudget() - itemAmount);
@@ -36,6 +36,8 @@ public class BudgetManager {
         return false;
     }
 
+    // MODIFIES: this
+    // EFFECTS: remove a category
     public void removeCategory(String name) {
         for (String c : budgetList.keySet()) {
             if (name.equals(c)) {
@@ -45,6 +47,9 @@ public class BudgetManager {
         }
     }
 
+    // REQUIRES: account and budget have not yet been set
+    // MODIFIES: this
+    // EFFECTS: sets the balance of account and budget
     public void setAccountAndBudget(Double acc, Double bgt) {
         account1 = new Account(acc, bgt);
     }

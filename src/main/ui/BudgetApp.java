@@ -12,11 +12,12 @@ public class BudgetApp {
     Scanner scanner = new Scanner(System.in);
     String userRequest;
 
-
+    //EFFECTS: runs the budgeting application
     public BudgetApp() {
         runApp();
     }
 
+    // EFFECTS: displays menu of options and processes user input
     public void runApp() {
         System.out.println("Welcome to the Budget Manager");
         do {
@@ -27,6 +28,8 @@ public class BudgetApp {
         } while (!userRequest.equals("6"));
     }
 
+
+    // EFFECTS: processes user input
     public void enterUserRequest(String userRequest) {
         switch (userRequest) {
             case "1":
@@ -52,12 +55,16 @@ public class BudgetApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a category
     public void addCategory() {
         System.out.println("add new category");
         String name = scanner.nextLine();
         budgetManager.addCategory(name);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a item
     public void addItem() {
         System.out.println("add new item");
         String item = scanner.nextLine();
@@ -74,6 +81,7 @@ public class BudgetApp {
         }
     }
 
+    // EFFECTS: displays current budget balance, categories and items with their costs and total spent
     public void displayManager() {
         System.out.format("Current budget balance: $%.2f%n", budgetManager.getAccount().getBudget());
         for (String i : budgetManager.budgetList.keySet()) {
@@ -87,6 +95,8 @@ public class BudgetApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the account and budget balance
     public void setAccountAndBudget() {
         System.out.println("Please enter your chequing account balance");
         Double acc = scanner.nextDouble();
@@ -97,6 +107,8 @@ public class BudgetApp {
         budgetManager.setAccountAndBudget(acc, bgt);
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes a category
     public void removeCategory() {
         System.out.println("Please enter the category you wish to remove");
         String name = scanner.nextLine();
@@ -104,13 +116,3 @@ public class BudgetApp {
     }
 
 }
-
-//System.out.println(Arrays.asList(budgetManager))
-
-//        if (userRequest.equals("1")) {
-//                addCategory();
-//                } else if (userRequest.equals("2")) {
-//                addItem();
-//                } else if (userRequest.equals("3")) {
-//                displayManager();
-//                }
