@@ -14,7 +14,7 @@ once place will help me better visualize my spending and reallocate how I spend 
 #### User Stories
 
 - As a user, I want to be able to input my own monthly income (budget)
-- As a user, I want to be able to create my own spending categories
+- As a user, I want to be able to create my own spending categories and add items
 - As a user, I want to be able to view my spending categories and amount spent in each
 - As a user, I want to be able to remove spending category(s)
 
