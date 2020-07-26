@@ -14,10 +14,6 @@ public class Account {
         return budget;
     }
 
-    public double getAccount() {
-        return account;
-    }
-
     public void setBudget(Double budget) {
         this.budget = budget;
     }
