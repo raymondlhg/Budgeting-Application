@@ -1,5 +1,6 @@
 package ui;
 
+import model.Account;
 import model.BudgetManager;
 import model.Item;
 
@@ -19,24 +20,30 @@ public class BudgetApp {
     public void runApp() {
         System.out.println("Welcome to the Budget Manager");
         do {
-            System.out.println("Please select an option: 1-add category, 2-add item, 3-View Budget, 4-Exit");
+            System.out.println("Please select an option: 1-set account and "
+                    + "budget 2-add category, 3-add item, 4-remove category, 5-View Budget, 6-Exit");
             userRequest = scanner.nextLine();
             enterUserRequest(userRequest);
-        } while (!userRequest.equals("4"));
+        } while (!userRequest.equals("6"));
     }
 
     public void enterUserRequest(String userRequest) {
         switch (userRequest) {
             case "1":
+                setAccountAndBudget();
+            case "2":
                 addCategory();
                 break;
-            case "2":
+            case "3":
                 addItem();
                 break;
-            case "3":
+            case "4":
+                removeCategory();
+                break;
+            case "5":
                 displayManager();
                 break;
-            case "4":
+            case "6":
                 System.out.println("Exiting system");
                 return;
             default:
@@ -72,6 +79,20 @@ public class BudgetApp {
                 System.out.println("\t Item: " + j.getItemName() + " " + "$" + j.getItemAmount());
             }
         }
+    }
+
+    public void setAccountAndBudget() {
+        System.out.println("Please enter your chequing account balance");
+        Double acc = scanner.nextDouble();
+        System.out.println("Please enter the percentage of your account as the monthly budget");
+        Double bgt = scanner.nextDouble();
+        Account account = new Account(acc, bgt);
+    }
+
+    public void removeCategory() {
+        System.out.println("Please enter the category you wish to remove");
+        String name = scanner.nextLine();
+        budgetManager.removeCategory(name);
     }
 
 }

@@ -24,6 +24,14 @@ public class BudgetManager {
         itemsOfCategory.add(i);
     }
 
+    public void removeCategory(String name) {
+        for (String i : budgetList.keySet()) {
+            if (name.equals(i)) {
+                budgetList.remove(i);
+            }
+        }
+    }
+
     public double getPriceOfItem(Item i) {
         return i.getItemAmount();
     }
