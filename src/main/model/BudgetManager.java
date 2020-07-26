@@ -2,9 +2,12 @@ package model;
 
 import java.util.*;
 
+import model.Account;
+
 // Manage items and categories
 public class BudgetManager {
     public HashMap<String, List<Item>> budgetList = new HashMap<>();
+    Account account1;
 
 
     // REQUIRES: Category does not already exist
@@ -18,30 +21,44 @@ public class BudgetManager {
 
     // MODIFIES:
     // EFFECTS:
-    public void addItem(String itemName, double itemAmount, String category) {
-        Item i = new Item(itemName, itemAmount); //creates new item
-        List<Item> itemsOfCategory = budgetList.get(category); //gets empty list of specified category
-        itemsOfCategory.add(i);
+    public boolean addItem(String itemName, double itemAmount, String category) {
+        if (itemAmount <= account1.getBudget()) {
+            account1.setBudget(account1.getBudget() - itemAmount);
+            Item i = new Item(itemName, itemAmount); //creates new item
+            if (!budgetList.containsKey(category)) {
+                this.addCategory(category);
+            }
+            //List<Item> itemsOfCategory = budgetList.get(category); //gets empty list of specified category
+            //itemsOfCategory.add(i);
+            budgetList.get(category).add(i);
+            return true;
+        }
+        return false;
     }
 
     public void removeCategory(String name) {
-        for (String i : budgetList.keySet()) {
-            if (name.equals(i)) {
-                budgetList.remove(i);
+        for (String c : budgetList.keySet()) {
+            if (name.equals(c)) {
+                budgetList.remove(c);
+                return; //ends the method after removing category
             }
         }
     }
 
-    public double getPriceOfItem(Item i) {
-        return i.getItemAmount();
+    public void setAccountAndBudget(Double acc, Double bgt) {
+        account1 = new Account(acc, bgt);
     }
 
-    public void getItem() {
-        System.out.println(Arrays.asList(budgetList));
+    public Account getAccount() {
+        return account1;
     }
 
-
-
+    public String getCategory() {
+        for (String i : budgetList.keySet()) {
+            return i;
+        }
+        return null;
+    }
 }
 
 

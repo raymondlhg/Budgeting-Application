@@ -31,6 +31,7 @@ public class BudgetApp {
         switch (userRequest) {
             case "1":
                 setAccountAndBudget();
+                break;
             case "2":
                 addCategory();
                 break;
@@ -65,19 +66,24 @@ public class BudgetApp {
         scanner.nextLine();
         System.out.println("enter item category");
         String category = scanner.nextLine();
-        if (!budgetManager.budgetList.containsKey(category)) {
-            budgetManager.addCategory(category);
+        if (budgetManager.addItem(item, price, category)) {
+            System.out.println("Item added");
+            System.out.format("New budget balance: $%.2f%n", budgetManager.getAccount().getBudget());
+        } else {
+            System.out.println("Item not added: out of budget");
         }
-        budgetManager.addItem(item, price, category);
-        System.out.println("Item added");
     }
 
     public void displayManager() {
+        System.out.format("Current budget balance: $%.2f%n", budgetManager.getAccount().getBudget());
         for (String i : budgetManager.budgetList.keySet()) {
+            double totalSpent = 0;
             System.out.println("Category: " + i);
             for (Item j : budgetManager.budgetList.get(i)) {
-                System.out.println("\t Item: " + j.getItemName() + " " + "$" + j.getItemAmount());
+                System.out.format("\t Item: %s $%.2f%n", j.getItemName(), j.getItemAmount());
+                totalSpent += j.getItemAmount();
             }
+            System.out.format("\t Total spent: $%.2f%n", totalSpent);
         }
     }
 
@@ -85,8 +91,10 @@ public class BudgetApp {
         System.out.println("Please enter your chequing account balance");
         Double acc = scanner.nextDouble();
         System.out.println("Please enter the percentage of your account as the monthly budget");
+        System.out.println("i.e. 0.1 is 10%");
         Double bgt = scanner.nextDouble();
-        Account account = new Account(acc, bgt);
+        scanner.nextLine();
+        budgetManager.setAccountAndBudget(acc, bgt);
     }
 
     public void removeCategory() {
