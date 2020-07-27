@@ -80,5 +80,25 @@ class BudgetManagerTest {
         assertEquals(900, budgetManager.getAccount().getBudget());
     }
 
+    @Test
+    public void testGetItemName() {
+        budgetManager.setAccountAndBudget(9000.0, 0.1);
+        Item i = new Item("ramen", 10);
+        i.getItemName();
+        i.getItemAmount();
+    }
+
+    @Test
+    public void testGetItemAmount() {
+        budgetManager.setAccountAndBudget(9000.0, 0.1);
+        Item i = new Item("ramen", 10);
+        i.getItemAmount();
+    }
+
+    @Test
+    public void testGetCategoryFail() {
+        assertEquals(null, budgetManager.getCategory());
+    }
+
 }
 
