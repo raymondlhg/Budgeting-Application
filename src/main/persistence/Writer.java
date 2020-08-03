@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 // TAKEN FROM TELLER APP
-// A writer that can write account data to a file
+// A writer that can write budget data to a file
 public class Writer {
     private PrintWriter printWriter;
 

@@ -12,7 +12,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-// A reader that can read account data from a file
+// SKELETON TAKE FROM TELLER APP
+// A reader that can read budget data from a file
 public class Reader {
     public static final String DELIMITER = ",";
 
@@ -30,8 +31,8 @@ public class Reader {
         return Files.readAllLines(file.toPath());
     }
 
-    // EFFECTS: returns a list of accounts parsed from list of strings
-    // where each string contains data for one account
+    // EFFECTS: returns BudgetManager parsed from a list of strings
+    // where each string contains data of either account/budget, category or item
     private static BudgetManager parseContent(List<String> fileContent) {
         String line1 = fileContent.get(0);
         ArrayList<String> lineComponents1 = splitString(line1);
@@ -54,10 +55,8 @@ public class Reader {
     }
 
 
-    // REQUIRES: components has size 2 where element 0 represents the
-    // id of the next account to be constructed, element 1 represents
-    // the account balance, elements 2 represents the name and element 3 represents
-    // the balance of the account to be constructed
+    // REQUIRES: components has size 2 where element 0 represents
+    // the account balance, elements 1 represents the budget
     // EFFECTS: returns an account constructed from components
     private static Account parseAccount(List<String> components) {
         double account = Double.parseDouble(components.get(0));
@@ -66,6 +65,9 @@ public class Reader {
         return new Account(account, budget);
     }
 
+    // REQUIRES: components has size i, containing category, item name and item amount;
+    // category may have an item list of items
+    // EFFECTS: returns an itemList constructed from components
     private static List<Item> parseCategory(List<String> components) {
         ArrayList<Item> itemList = new ArrayList<Item>();
 
