@@ -30,15 +30,23 @@ public class BudgetApp {
         do {
             System.out.println("Please select an option: 1-set account and "
                     + "budget 2-add category, 3-add item, 4-remove category, 5-View Budget, 6-Save,"
-                    + "7-Load, 8-Exit");
+                    + " 7-Load, 8-Exit");
             userRequest = scanner.nextLine();
-            enterUserRequest(userRequest);
+            enterUserRequestDirectory(userRequest);
         } while (!userRequest.equals("8"));
     }
 
 
+    public void enterUserRequestDirectory(String userRequest) {
+        if (Integer.parseInt(userRequest) <= 4) {
+            enterUserRequest1(userRequest);
+        } else {
+            enterUserRequest2(userRequest);
+        }
+    }
+
     // EFFECTS: processes user input
-    public void enterUserRequest(String userRequest) {
+    public void enterUserRequest1(String userRequest) {
         switch (userRequest) {
             case "1":
                 setAccountAndBudget();
@@ -52,6 +60,13 @@ public class BudgetApp {
             case "4":
                 removeCategory();
                 break;
+            default:
+                System.out.println("Invalid input");
+        }
+    }
+
+    public void enterUserRequest2(String userRequest) {
+        switch (userRequest) {
             case "5":
                 displayManager();
                 break;
@@ -68,6 +83,8 @@ public class BudgetApp {
                 System.out.println("Invalid input");
         }
     }
+
+
 
     // MODIFIES: this
     // EFFECTS: adds a category
