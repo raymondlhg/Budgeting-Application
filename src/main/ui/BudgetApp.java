@@ -4,13 +4,20 @@ import model.Account;
 import model.BudgetManager;
 import model.Item;
 
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import persistence.Reader;
+import persistence.Writer;
 
 // Budgeting application
 public class BudgetApp {
     BudgetManager budgetManager = new BudgetManager();
     Scanner scanner = new Scanner(System.in);
     String userRequest;
+    private static final String BUDGET_FILE = "./data/budget.txt";
 
     //EFFECTS: runs the budgeting application
     public BudgetApp() {
@@ -22,10 +29,11 @@ public class BudgetApp {
         System.out.println("Welcome to the Budget Manager");
         do {
             System.out.println("Please select an option: 1-set account and "
-                    + "budget 2-add category, 3-add item, 4-remove category, 5-View Budget, 6-Exit");
+                    + "budget 2-add category, 3-add item, 4-remove category, 5-View Budget, 6-Save,"
+                    + "7-Load, 8-Exit");
             userRequest = scanner.nextLine();
             enterUserRequest(userRequest);
-        } while (!userRequest.equals("6"));
+        } while (!userRequest.equals("8"));
     }
 
 
@@ -48,6 +56,12 @@ public class BudgetApp {
                 displayManager();
                 break;
             case "6":
+                saveBudget();
+                break;
+            case "7":
+                loadBudget();
+                break;
+            case "8":
                 System.out.println("Exiting system");
                 return;
             default:
@@ -61,6 +75,8 @@ public class BudgetApp {
         System.out.println("add new category");
         String name = scanner.nextLine();
         budgetManager.addCategory(name);
+        System.out.println(name + " category added!");
+        // SUGGESTION: show categories that already exist, create index of standard categories
     }
 
     // MODIFIES: this
@@ -102,9 +118,10 @@ public class BudgetApp {
         Double acc = scanner.nextDouble();
         System.out.println("Please enter the percentage of your account as the monthly budget");
         System.out.println("i.e. 0.1 is 10%");
-        Double bgt = scanner.nextDouble();
+        Double pct = scanner.nextDouble();
         scanner.nextLine();
-        budgetManager.setAccountAndBudget(acc, bgt);
+        budgetManager.setAccountAndBudget(acc, acc * pct);
+        System.out.println("You have set Account: $" + acc + ", Budget: $" + acc * pct);
     }
 
     // MODIFIES: this
@@ -113,6 +130,33 @@ public class BudgetApp {
         System.out.println("Please enter the category you wish to remove");
         String name = scanner.nextLine();
         budgetManager.removeCategory(name);
+        // SUGGESTION: show existing categories
     }
 
+    public void saveBudget() {
+        try {
+            Writer writer = new Writer(new File(BUDGET_FILE));
+            writer.write(budgetManager);
+            writer.close();
+            System.out.println("Accounts saved to file " + BUDGET_FILE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save accounts to " + BUDGET_FILE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // this is due to a programming error
+        }
+    }
+
+    public void loadBudget() {
+        try {
+            budgetManager = Reader.readBudgetContents(new File(BUDGET_FILE));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+    //    public HashMap<String, List<Item>> budgetList = new HashMap<>();
 }

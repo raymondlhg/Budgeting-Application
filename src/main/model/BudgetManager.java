@@ -1,14 +1,26 @@
 package model;
 
+import java.io.*;
 import java.util.*;
 
 import model.Account;
+import persistence.*;
+import persistence.Reader;
 
 // Manage items and categories
-public class BudgetManager {
+public class BudgetManager implements Saveable {
     public HashMap<String, List<Item>> budgetList = new HashMap<>();
     Account account1;
 
+
+    public BudgetManager(Account account1, HashMap<String, List<Item>> budgetList) {
+        this.budgetList = budgetList;
+        this.account1 = account1;
+    }
+
+    public BudgetManager() {
+
+    }
 
     // REQUIRES: Category does not already exist
     // MODIFIES: budgetManager
@@ -63,6 +75,26 @@ public class BudgetManager {
             return i;
         }
         return null;
+    }
+
+
+    @Override
+    public void save(PrintWriter printWriter) {
+        printWriter.print(account1.getAccount());
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(account1.getBudget());
+        printWriter.println();
+        for (String i : budgetList.keySet()) {
+            printWriter.print(i);
+            printWriter.print(Reader.DELIMITER);
+            for (Item j : budgetList.get(i)) {
+                printWriter.print(j.getItemName());
+                printWriter.print(Reader.DELIMITER);
+                printWriter.print(j.getItemAmount());
+                printWriter.print(Reader.DELIMITER);
+            }
+            printWriter.println();
+        }
     }
 }
 

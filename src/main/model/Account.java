@@ -5,13 +5,17 @@ public class Account {
     private double budget;
 
     // EFFECTS: Creates a chequing account
-    public Account(double account, double percent) {
+    public Account(double account, double budget) {
         this.account = account;
-        this.budget = percent * account;
+        this.budget = budget;
     }
 
     public double getBudget() {
         return budget;
+    }
+
+    public double getAccount() {
+        return account;
     }
 
     public void setBudget(Double budget) {

@@ -18,3 +18,8 @@ once place will help me better visualize my spending and reallocate how I spend 
 - As a user, I want to be able to view my spending categories and amount spent in each
 - As a user, I want to be able to remove spending category(s)
 
+##### Phase 2 User Stories
+
+- As a user, I want to be able to save my account and budget, spending categories and items to file
+- As a user, I want to be able to load my saved file of the above when the program starts
+

@@ -1,0 +1,5 @@
+10000.0,810.0
+travel,plane ticket,90.0,
+food,
+pet,dog,100.0,
+entertainment,movie,10.0,
