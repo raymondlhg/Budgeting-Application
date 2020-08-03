@@ -30,7 +30,7 @@ class BudgetManagerTest {
 
     @Test
     public void testAddItemSuccess() {
-        budgetManager.setAccountAndBudget(10000.0, 0.1);
+        budgetManager.setAccountAndBudget(10000.0, 1000.0);
         assertEquals(1000, budgetManager.getAccount().getBudget());
         budgetManager.addItem("ramen", 10, "food");
         assertEquals(990, budgetManager.getAccount().getBudget());
@@ -40,16 +40,17 @@ class BudgetManagerTest {
 
     @Test
     public void testAddItemFail() {
-        budgetManager.setAccountAndBudget(5000.0, 0.1);
+        budgetManager.setAccountAndBudget(5000.0, 500.0);
         assertEquals(500, budgetManager.getAccount().getBudget());
 
-        assertTrue(budgetManager.addItem("ramen",500, "food"));
-        assertFalse(budgetManager.addItem("popsicle",1, "food"));
+        assertTrue(budgetManager.addItem("ramen",500, "food")); // item amt =bgt
+        assertEquals(0, budgetManager.getAccount().getBudget());
+        assertFalse(budgetManager.addItem("popsicle",1, "food")); // item amt > bgt
     }
 
     @Test
     public void testAddItemCategoryAlreadyExists() {
-        budgetManager.setAccountAndBudget(10000.0, 0.1);
+        budgetManager.setAccountAndBudget(10000.0, 1000.0);
         assertEquals(1000, budgetManager.getAccount().getBudget());
         budgetManager.addCategory("food");
         budgetManager.addItem("ramen", 10, "food");
@@ -76,7 +77,7 @@ class BudgetManagerTest {
 
     @Test
     public void testSetAccountAndBudget() {
-        budgetManager.setAccountAndBudget(9000.0, 0.1);
+        budgetManager.setAccountAndBudget(9000.0, 900.0);
         assertEquals(900, budgetManager.getAccount().getBudget());
     }
 
