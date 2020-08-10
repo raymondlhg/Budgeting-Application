@@ -3,6 +3,8 @@ package ui;
 import model.Account;
 import model.BudgetManager;
 import model.Item;
+import persistence.Reader;
+import persistence.Writer;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
@@ -16,16 +18,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame {
 
-    BudgetApp budgetApp;
     public HashMap<String, List<Item>> budgetList = new HashMap<>();
     Account account1 = new Account(10000, 1000);
     BudgetManager budgetManager = new BudgetManager(account1, budgetList);
+    private static final String BUDGET_FILE = "./data/budgetGUI.txt";
 
     private JFrame frame = new JFrame();
     private JTextField itemNameInput = new JTextField();
@@ -33,6 +38,8 @@ public class GUI extends JFrame implements ActionListener {
     private JTextField itemCategoryInput = new JTextField();
     private JButton addButton;
     private JButton deleteButton;
+    private JButton saveButton;
+    private JButton loadButton;
     private JPanel addItemPanel = new JPanel();
     private JPanel displayPanel = new JPanel();
     private JTabbedPane tabbedPane;
@@ -78,8 +85,12 @@ public class GUI extends JFrame implements ActionListener {
         Object[] row = new Object[3];
         JButton addButton = addButton(budgetList, model, row);
         JButton deleteButton = deleteButton(budgetList, model, table);
+        JButton saveButton = saveButton();
+        JButton loadButton = loadButton(model, row);
         addItemPanel.add(addButton);
         displayPanel.add(deleteButton);
+        displayPanel.add(saveButton);
+        displayPanel.add(loadButton);
 
         model.setColumnIdentifiers(columns);
         table.setModel(model);
@@ -120,21 +131,26 @@ public class GUI extends JFrame implements ActionListener {
                     budgetManager.addItem(itemNameInput.getText(), Double.parseDouble(itemAmountInput.getText()),
                             itemCategoryInput.getText());
 
-                    for (String i : budgetManager.budgetList.keySet()) {
-                        row[0] = i;
-                        for (Item j : budgetManager.budgetList.get(i)) {
-                            row[1] = j.getItemName();
-                            row[2] = j.getItemAmount();
-                        }
-                    }
+                    drawToGUI(model, row);
 
-                    model.addRow(row);
                     playSound("notification.wav");
                 }
 
             }
         });
         return addButton;
+    }
+
+    public void drawToGUI(DefaultTableModel model, Object[] row) {
+        model.setRowCount(0);
+        for (String i : budgetManager.budgetList.keySet()) {
+            row[0] = i;
+            for (Item j : budgetManager.budgetList.get(i)) {
+                row[1] = j.getItemName();
+                row[2] = j.getItemAmount();
+                model.addRow(row);
+            }
+        }
     }
 
     private JButton deleteButton(HashMap<String, List<Item>> budgetList, DefaultTableModel model, JTable table) {
@@ -148,22 +164,51 @@ public class GUI extends JFrame implements ActionListener {
                             0).toString(), table.getValueAt(row, 1).toString(),
                             Double.parseDouble(table.getValueAt(row, 2).toString()));
 
-                    model.removeRow(row);
                     playSound("pop.wav");
+                    model.removeRow(row);
                 }
             }
         });
         return deleteButton;
     }
 
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            Object src = e.getSource();
-//            if (src == addButton) {
-//                budgetManager.addItem(itemNameInput.getText(), Double.parseDouble(itemAmountInput.getText()),
-//                        itemCategoryInput.getText());
-//
-//            }
+    private JButton saveButton() {
+        saveButton = new JButton("save");
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Writer writer = new Writer(new File(BUDGET_FILE));
+                    writer.write(budgetManager);
+                    writer.close();
+                    System.out.println("Accounts saved to file " + BUDGET_FILE);
+                } catch (FileNotFoundException i) {
+                    System.out.println("Unable to save accounts to " + BUDGET_FILE);
+                } catch (UnsupportedEncodingException i) {
+                    i.printStackTrace();
+                    // this is due to a programming error
+                }
+
+            }
+        });
+        return saveButton;
+    }
+
+    private JButton loadButton(DefaultTableModel model, Object[] row) {
+        loadButton = new JButton("load");
+        loadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    budgetManager = Reader.readBudgetContents(new File(BUDGET_FILE));
+                    drawToGUI(model, row);
+                } catch (IOException i) {
+                    i.printStackTrace();
+                }
+            }
+        });
+        return loadButton;
+    }
 
     protected Component makeTextPanel(String text) {
         JPanel panel = new JPanel(false);
@@ -172,11 +217,6 @@ public class GUI extends JFrame implements ActionListener {
         panel.setLayout(new GridLayout(1, 1));
         panel.add(filler);
         return panel;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
     }
 
     private class SetUpInputs {

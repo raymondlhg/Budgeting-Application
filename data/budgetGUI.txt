@@ -1,0 +1,4 @@
+10000.0,970.0
+ticket,travel,10.0,
+food,ramen2,10.0,
+pet,dog,10.0,
