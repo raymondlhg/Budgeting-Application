@@ -23,3 +23,14 @@ once place will help me better visualize my spending and reallocate how I spend 
 - As a user, I want to be able to save my account and budget, spending categories and items to file
 - As a user, I want to be able to load my saved file of the above when the program starts
 
+##### Phase 3 Instructions for Grader
+
+- Two required events related to user story of "multiple Xs to Y": Type in item name, amount and category and click
+- "add item" button to add the item to the budget manager
+- Click the "display budget" tab to display all the current items
+- In the display panel, select a row (which is an item) and click the "delete" button to delete the item
+- NOTE: the delete button is the second component to the two required events
+- To trigger the audiovisual component, each of the four buttons creates their own unique sound
+- Click the "save" button to save the current list of items to the budget manager
+- Click the "load" button to load the state of the application from file
+
