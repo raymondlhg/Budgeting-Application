@@ -221,18 +221,4 @@ public class GUI extends JFrame implements ActionListener {
         }
     }
 
-//    private void loadToTable(HashMap<String, List<Item>> budgetList, DefaultTableModel model, Object[] row) {
-//        for (Map.Entry<String, List<Item>> entry : budgetList.entrySet()) {
-//            row[0] = entry.getKey();
-//            row[1] = entry.getValue();
-//            row[2] = entry.getValue();
-//
-//            model.addRow(row);
-//        }
-//    }
 }
-
-
-//        itemNameInput.setPreferredSize(new Dimension(120, 20));
-//        itemAmountInput.setPreferredSize(new Dimension(120, 20));
-//        itemCategoryInput.setPreferredSize(new Dimension(120, 20));

@@ -101,5 +101,16 @@ class BudgetManagerTest {
         assertEquals(null, budgetManager.getCategory());
     }
 
+    @Test
+    public void testRemoveItemGUI() {
+        budgetManager.setAccountAndBudget(10000.0, 1000.0);
+        assertEquals(1000, budgetManager.getAccount().getBudget());
+        budgetManager.addItem("ramen", 10, "food");
+        assertEquals(990, budgetManager.getAccount().getBudget());
+        budgetManager.removeItemGUI("food", "ramen", 10);
+        assertEquals(1000, budgetManager.getAccount().getBudget());
+        assertTrue(budgetManager.budgetList.isEmpty());
+    }
+
 }
 
