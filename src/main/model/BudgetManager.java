@@ -48,6 +48,23 @@ public class BudgetManager implements Saveable {
         return false;
     }
 
+    public void removeItemGUI(String category, String itemName, double itemAmount) {
+        for (String c : budgetList.keySet()) {
+            if (category.equals(c)) {
+                for (Item i : budgetList.get(c)) {
+                    if (i.getItemName().equals(itemName)) {
+                        account1.setBudget(account1.getBudget() + itemAmount);
+                        budgetList.get(c).remove(i);
+                        if (budgetList.get(c).isEmpty()) {
+                            removeCategory(category);
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: remove a category
     public void removeCategory(String name) {

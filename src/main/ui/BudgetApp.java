@@ -26,7 +26,7 @@ public class BudgetApp {
 
     // EFFECTS: displays menu of options and processes user input
     public void runApp() {
-        System.out.println("Welcome to the Budget Manager");
+        System.out.println("Welcome to the Budget Manager, please press 7 to load previous data");
         do {
             System.out.println("Please select an option: 1-set account and "
                     + "budget 2-add category, 3-add item, 4-remove category, 5-View Budget, 6-Save,"
@@ -172,8 +172,4 @@ public class BudgetApp {
         }
 
     }
-
-
-
-    //    public HashMap<String, List<Item>> budgetList = new HashMap<>();
 }
