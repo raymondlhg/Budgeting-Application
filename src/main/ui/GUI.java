@@ -97,11 +97,14 @@ public class GUI extends JFrame {
         Font font = new Font("Open Sans", Font.PLAIN, 15);
         table.setFont(font);
         table.setRowHeight(15);
+        addPane(table);
+
+    }
+
+    public void addPane(JTable table) {
         JScrollPane pane = new JScrollPane(table);
         pane.setBounds(0, 0, 680, 500);
-
         displayPanel.add(pane);
-
     }
 
     public void addItemToPanel() {
