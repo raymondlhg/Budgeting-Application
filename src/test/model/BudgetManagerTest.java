@@ -110,6 +110,9 @@ class BudgetManagerTest {
         budgetManager.removeItemGUI("food", "ramen", 10);
         assertEquals(1000, budgetManager.getAccount().getBudget());
         assertTrue(budgetManager.budgetList.isEmpty());
+
+        budgetManager.removeItemGUI("travel", "ticket", 10);
+        assertTrue(budgetManager.budgetList.isEmpty());
     }
 
 }
