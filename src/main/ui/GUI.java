@@ -182,6 +182,7 @@ public class GUI extends JFrame {
                     writer.write(budgetManager);
                     writer.close();
                     System.out.println("Accounts saved to file " + BUDGET_FILE);
+                    playSound("ping2.wav");
                 } catch (FileNotFoundException i) {
                     System.out.println("Unable to save accounts to " + BUDGET_FILE);
                 } catch (UnsupportedEncodingException i) {
@@ -202,6 +203,7 @@ public class GUI extends JFrame {
                 try {
                     budgetManager = Reader.readBudgetContents(new File(BUDGET_FILE));
                     drawToGUI(model, row);
+                    playSound("ping1.wav");
                 } catch (IOException i) {
                     i.printStackTrace();
                 }
