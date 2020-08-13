@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-// SKELETON TAKE FROM TELLER APP
+// SKELETON TAKE FROM TELLER APP AND MODIFIED
 // A reader that can read budget data from a file
 public class Reader {
     public static final String DELIMITER = ",";

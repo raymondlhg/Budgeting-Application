@@ -34,3 +34,27 @@ once place will help me better visualize my spending and reallocate how I spend 
 - Click the "save" button to save the current list of items to the budget manager
 - Click the "load" button to load the state of the application from file
 
+##### Phase 4 - Task 2
+- I have chosen to use integrate the Map interface in my BudgetManager class
+- Most of the methods in BudgetManager interact with this HashMap, either adding, removing or modifying it
+- The BudgetManager class has a HashMap (named budgetList) "HashMap<String, List<Item>> budgetList = new HashMap<>();"
+- The String represents a spending category as the Key, and the List<Item> is a list of items as the values
+
+##### Phase 4 - Task 3
+
+Problem 1 (Coupling)
+
+- In the first phase of my project, I had a separate class named "Category"
+- After completing my design, I decided to redesign my project to remove this class as it created unnecessary coupling
+- The "Category" class was dependent on BudgetManager, which created many problems
+- One problem I had when running the program and taking the user's input was that the system could not convert
+- the user's string input to a category, which complicated things
+- Thus, I refactored to remove the "Category" class and put it as the key in my HashMap
+
+Problem 2 (Cohesion)
+
+- In the first phase of my project, when I was designing my BudgetManager class, it originally included
+- a field "account" which was responsible for being an account and calculating a budget (% of the account)
+- I realized that my BudgetManager class was too messy (now discovering it had poor cohesion), thus I refactored
+- to create a separate class "Account", which handled the process of setting the account balance, budget, etc.
+
