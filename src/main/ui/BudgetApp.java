@@ -37,6 +37,7 @@ public class BudgetApp {
     }
 
 
+    // EFFECTS: processes user input and redirects
     public void enterUserRequestDirectory(String userRequest) {
         if (Integer.parseInt(userRequest) <= 4) {
             enterUserRequest1(userRequest);
@@ -65,6 +66,7 @@ public class BudgetApp {
         }
     }
 
+    // EFFECTS: processes user input
     public void enterUserRequest2(String userRequest) {
         switch (userRequest) {
             case "5":
@@ -150,6 +152,8 @@ public class BudgetApp {
         // SUGGESTION: show existing categories
     }
 
+    // MODIFIES: BUDGET_FILE
+    // EFFECTS: saves the state of the application to file (account, budgetManager)
     public void saveBudget() {
         try {
             Writer writer = new Writer(new File(BUDGET_FILE));
@@ -164,6 +168,8 @@ public class BudgetApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads account and budgetManager from BUDGET_FILE
     public void loadBudget() {
         try {
             budgetManager = Reader.readBudgetContents(new File(BUDGET_FILE));

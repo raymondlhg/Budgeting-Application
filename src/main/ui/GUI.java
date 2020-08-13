@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// GUI for BudgetManager
 public class GUI extends JFrame {
 
     public HashMap<String, List<Item>> budgetList = new HashMap<>();
@@ -44,7 +45,7 @@ public class GUI extends JFrame {
     private JPanel displayPanel = new JPanel();
     private JTabbedPane tabbedPane;
 
-
+    // GUI
     public GUI() {
 
         frame.setSize(680, 500);
@@ -72,6 +73,7 @@ public class GUI extends JFrame {
 
     }
 
+    // EFFECTS: sets up JTable and related items
     public void addJTable() {
         JTable table = new JTable();
         Object[] columns = {"Category", "Item", "Item Amount"};
@@ -101,12 +103,14 @@ public class GUI extends JFrame {
 
     }
 
+    // EFFECTS: sets up pane
     public void addPane(JTable table) {
         JScrollPane pane = new JScrollPane(table);
         pane.setBounds(0, 0, 680, 500);
         displayPanel.add(pane);
     }
 
+    // EFFECTS: adds items to respective panels
     public void addItemToPanel() {
         SetUpInputs set = new SetUpInputs().invoke();
         JLabel itemName = set.getLblItemName();
@@ -124,6 +128,7 @@ public class GUI extends JFrame {
 
     }
 
+    // EFFECTS: create addButton that adds item to budgetManager and draws to GUI
     private JButton addButton(HashMap<String, List<Item>> budgetList, DefaultTableModel model, Object[] row) {
         addButton = new JButton("Add Item");
         addButton.addActionListener(new ActionListener() {
@@ -144,6 +149,7 @@ public class GUI extends JFrame {
         return addButton;
     }
 
+    // EFFECTS: draws items to GUI display panel
     public void drawToGUI(DefaultTableModel model, Object[] row) {
         model.setRowCount(0);
         for (String i : budgetManager.budgetList.keySet()) {
@@ -156,6 +162,7 @@ public class GUI extends JFrame {
         }
     }
 
+    // EFFECTS: creates deleteButton and deletes items (rows) from GUI and removes item from budgetManager
     private JButton deleteButton(HashMap<String, List<Item>> budgetList, DefaultTableModel model, JTable table) {
         deleteButton = new JButton("Delete Item");
         deleteButton.addActionListener(new ActionListener() {
@@ -175,6 +182,7 @@ public class GUI extends JFrame {
         return deleteButton;
     }
 
+    // EFFECTS: creates saveButton that saves the state of the application to file (account, budgetManager)
     private JButton saveButton() {
         saveButton = new JButton("save");
         saveButton.addActionListener(new ActionListener() {
@@ -198,6 +206,7 @@ public class GUI extends JFrame {
         return saveButton;
     }
 
+    // EFFECTS: creates loadButton that loads budgetManager from BUDGET_FILE
     private JButton loadButton(DefaultTableModel model, Object[] row) {
         loadButton = new JButton("load");
         loadButton.addActionListener(new ActionListener() {
@@ -215,15 +224,7 @@ public class GUI extends JFrame {
         return loadButton;
     }
 
-    protected Component makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
-        JLabel filler = new JLabel(text);
-        filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(1, 1));
-        panel.add(filler);
-        return panel;
-    }
-
+    // EFFECTS: sets up JLabels and inputs
     private class SetUpInputs {
         private JLabel lblItemName;
         private JLabel lblItemAmount;
@@ -253,6 +254,7 @@ public class GUI extends JFrame {
 
     }
 
+    // EFFECTS: plays audio from specified wav file
     public void playSound(String soundName) {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName)

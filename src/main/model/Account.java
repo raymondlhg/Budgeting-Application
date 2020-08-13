@@ -1,5 +1,6 @@
 package model;
 
+// Represents an account with an account balance and a budget
 public class Account {
     private double account;
     private double budget;

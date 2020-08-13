@@ -48,6 +48,10 @@ public class BudgetManager implements Saveable {
         return false;
     }
 
+
+    // MODIFIES: account1, this
+    // EFFECTS: removes item from category if item exists in that category and refunds amount of item to budget
+    // if the category contains no items, remove the category
     public void removeItemGUI(String category, String itemName, double itemAmount) {
         for (String c : budgetList.keySet()) {
             if (category.equals(c)) {
