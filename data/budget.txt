@@ -1,0 +1,4 @@
+10000.0,970.0
+travel expenses,ticket,30.0,
+food,ramen,10.0,
+pet,dog,100.0,
